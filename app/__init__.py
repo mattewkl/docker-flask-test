@@ -1,11 +1,8 @@
-from flask import Flask, url_for, request, redirect
-import psycopg2
-import configs
-import sqlalchemy
+from flask import Flask
 from configs import Configuration
-from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
 
 app = Flask(__name__)
 app.config.from_object(Configuration)

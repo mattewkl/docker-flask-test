@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Last object</title>
+</head>
+
+<body>
+    <h3>Last saved object</h3>
+    {% if record %}
+        <p>{{ record.id }}</p>
+        <p>{{ record.question_text }}</p>
+        <p>{{ record.answer }}</p>
+        <p>{{ record.created }}</p>
+    {% else %}
+        <p>Empty object</p>
+    {% endif %}
+</body>
+</html>

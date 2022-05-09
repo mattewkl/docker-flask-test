@@ -6,15 +6,7 @@
     <title>Questions</title>
 </head>
 <body>
-{% block title %}
-    Create new post
-{% endblock %}
-
-{% block content_title %}
-    New post
-{% endblock %}
-
-{% block content %}
+    <h3>How many questions to add</h3>
     <div class="col-md-6">
         <form action="{{ url_for('pages.get_questions') }}" method="POST">
             {% for f in form %}
@@ -27,6 +19,6 @@
             <button class="btn btn-success" type="submit">Create</button>
         </form>
     </div>
-{% endblock %}
+
 </body>
 </html>
