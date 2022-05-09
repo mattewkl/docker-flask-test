@@ -1,6 +1,7 @@
 from requests import get
 from models import Questions
 from sqlalchemy.exc import IntegrityError
+from flask import jsonify
 
 
 def get_questions_in_json(count: int):
@@ -29,5 +30,24 @@ def update_questions_table(db, json_object) -> int:
     return count
 
 
-def get_last_saved_question(db):
-    return db.session.query(Questions).order_by(Questions.record_number.desc()).first()
+def get_last_saved_question_in_json(db):
+    last_saved_question = db.session.query(Questions).order_by(Questions.record_number.desc()).first()
+    json_question = jsonify({
+        'question_id': last_saved_question.id,
+        'question_text': last_saved_question.question_text,
+        'answer': last_saved_question.answer,
+        'created': last_saved_question.created
+    })
+    json_question.status_code = 201
+    return json_question
+
+def get_questions_by_part(questions_to_save: int, db):
+    while questions_to_save > 0:
+        if questions_to_save > 100:
+            json_object = get_questions_in_json(100)
+            questions_to_save -= 100
+        else:
+            json_object = get_questions_in_json(questions_to_save)
+            questions_to_save -= questions_to_save
+        questions_not_added = update_questions_table(db, json_object)
+        questions_to_save += questions_not_added
