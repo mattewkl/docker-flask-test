@@ -11,5 +11,5 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-from views import bp
+from .views import bp
 app.register_blueprint(bp)

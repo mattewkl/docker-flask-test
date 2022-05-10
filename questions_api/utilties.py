@@ -1,5 +1,5 @@
 from requests import get
-from models import Questions
+from .models import Questions
 from sqlalchemy.exc import IntegrityError
 from flask import jsonify
 
