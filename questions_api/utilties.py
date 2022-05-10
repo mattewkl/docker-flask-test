@@ -1,3 +1,4 @@
+import flask_sqlalchemy
 from requests import get
 from .models import Questions
 from flask import jsonify
@@ -11,8 +12,7 @@ def get_questions_in_json(count: int) -> dict: #json
     return get(f'https://jservice.io/api/random?count={count}').json()
 
 
-
-def update_questions_table(db, json_object) -> int:
+def update_questions_table(db:flask_sqlalchemy.SQLAlchemy, json_object: dict) -> int:
     '''Функция для обрабтки полученного json, и помещения его в базу данных, и записи
     количества не помещенных в базу данных записей.
 
@@ -42,7 +42,7 @@ def update_questions_table(db, json_object) -> int:
     return count
 
 
-def get_last_saved_question_in_json(db):
+def get_last_saved_question_in_json(db: flask_sqlalchemy.SQLAlchemy) -> type(jsonify({})):
     '''Функция возврата последнего сохраненного вопроса из базы данных в формате json
 
     Аргументы:
@@ -59,7 +59,7 @@ def get_last_saved_question_in_json(db):
     json_question.status_code = 201
     return json_question
 
-def get_questions_by_part(questions_to_save: int, db):
+def get_questions_by_part(questions_to_save: int, db: flask_sqlalchemy.SQLAlchemy):
     '''Функция, которая обрабатывает нужное количество вопросов, так как API
     не может отдать больше 100 за раз.
 

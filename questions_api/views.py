@@ -8,7 +8,6 @@ bp = Blueprint('pages', __name__, template_folder='templates')
 
 
 @bp.route('/', methods=['POST'])
-
 def get_questions_json():
     '''Обработчик POST запросов с json. Пример запроса указан в readme. Если запрос подходит
     под указанный в требованиях - вернет последний сохраненный объект, в ином случае - пустой.'''
@@ -37,3 +36,4 @@ def get_questions():
 @bp.route('/last-object')
 def last_object():
     return get_last_saved_question_in_json(db)
+
