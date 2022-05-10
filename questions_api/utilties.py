@@ -42,7 +42,7 @@ def update_questions_table(db:flask_sqlalchemy.SQLAlchemy, json_object: dict) ->
     return count
 
 
-def get_last_saved_question_in_json(db: flask_sqlalchemy.SQLAlchemy) -> type(jsonify({})):
+def get_last_saved_question_in_json(db: flask_sqlalchemy.SQLAlchemy):
     '''Функция возврата последнего сохраненного вопроса из базы данных в формате json
 
     Аргументы:
