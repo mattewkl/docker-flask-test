@@ -1,4 +1,4 @@
-from app import db
+from questions_api import db
 
 class Questions(db.Model):
     record_number = db.Column(db.Integer, primary_key=True)

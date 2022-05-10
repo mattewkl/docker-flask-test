@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request, abort, redirect, render_template, url_for
 from forms import PostForm
-from app import db
+from questions_api import db
 from utilties import get_last_saved_question_in_json, get_questions_by_part
 
 

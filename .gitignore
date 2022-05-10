@@ -1,5 +1,6 @@
 /venv/
 /.idea/
 /migrations/
-/testapi.json
+
+/.__pycache__/
 
