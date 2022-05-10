@@ -1,5 +1,5 @@
 class Configuration(object):
-    DEBUG=True
+    DEBUG=False
     SQLALCHEMY_DATABASE_URI = 'postgresql://testuser:123456@localhost:5432/postgrestest'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'placeholder'

@@ -12,7 +12,7 @@
 1) Клонируем репозиторий. Создаем новую директорию, в консоли в этой директории делаем git init, затем git-clone -r https://github.com/mattewkl/docker-flask-test.git
 2) В консоли пишем docker-compose up
 3) создаем виртуальное окружение, активируем его, устанавливаем библиотеки указанные в requirements.txt Гайд по настройке виртуального окружения: https://python-scripts.com/virtualenv
-4) в корневой папке проекта flask db init
+4) в корневой папке проекта set FLASK_APP=questions_api Затем flask db init
 5) flask db migrate 'название миграции'
 6) flask db upgrade
 7) python manage.py
