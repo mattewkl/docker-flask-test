@@ -1,14 +1,26 @@
 from requests import get
 from .models import Questions
-from sqlalchemy.exc import IntegrityError
 from flask import jsonify
 
 
-def get_questions_in_json(count: int):
+
+def get_questions_in_json(count: int) -> dict: #json
+    '''На вход функция получает число вопросов, заходит на сайт, забирает оттуда json,
+    и возвращает его нам'''
+
     return get(f'https://jservice.io/api/random?count={count}').json()
 
 
+
 def update_questions_table(db, json_object) -> int:
+    '''Функция для обрабтки полученного json, и помещения его в базу данных, и записи
+    количества не помещенных в базу данных записей.
+
+    Аргументы:
+    db - объект базы данных SQLalchemy
+    json_object - json, который мы получили ранее.
+
+    Возвращает число непомещенных в базу данных записей'''
     count = 0
     for element in json_object:
         question_id = element.get('id', 'API error, id not found')
@@ -23,14 +35,20 @@ def update_questions_table(db, json_object) -> int:
         db.session.add(question)
         try:
             db.session.commit()
-        except IntegrityError:
-            print('Error')
+        except Exception as e:
+            print(f'{e}')
             db.session.rollback()
             count += 1
     return count
 
 
 def get_last_saved_question_in_json(db):
+    '''Функция возврата последнего сохраненного вопроса из базы данных в формате json
+
+    Аргументы:
+    db - объект базы данных SQLalchemy
+
+    Возврат - последний сохраненный вопрос в формате json, если его нет - просто объект'''
     last_saved_question = db.session.query(Questions).order_by(Questions.record_number.desc()).first()
     json_question = jsonify({
         'question_id': last_saved_question.id,
@@ -42,6 +60,13 @@ def get_last_saved_question_in_json(db):
     return json_question
 
 def get_questions_by_part(questions_to_save: int, db):
+    '''Функция, которая обрабатывает нужное количество вопросов, так как API
+    не может отдать больше 100 за раз.
+
+    Аргументы:
+    questions_to_save - число вопросов
+    db - объект базы данных SQLalchemy
+    Функция ничего не возвращает.'''
     while questions_to_save > 0:
         if questions_to_save > 100:
             json_object = get_questions_in_json(100)

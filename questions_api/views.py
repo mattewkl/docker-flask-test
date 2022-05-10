@@ -8,7 +8,10 @@ bp = Blueprint('pages', __name__, template_folder='templates')
 
 
 @bp.route('/', methods=['POST'])
+
 def get_questions_json():
+    '''Обработчик POST запросов с json. Пример запроса указан в readme. Если запрос подходит
+    под указанный в требованиях - вернет последний сохраненный объект, в ином случае - пустой.'''
     content = {}
     try:
         questions_to_save = int(request.json.get('questions_num'))
